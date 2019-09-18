@@ -19,7 +19,7 @@
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
     </properties>
     <modules>
-        <module>springcloud-config</module>
+        <module>springcloud-config-server</module>
         <module>springcloud-config-client</module>
     </modules>
 	<dependencyManagement>
