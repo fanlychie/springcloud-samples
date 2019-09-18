@@ -1,0 +1,19 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: eureka-server-cluster
+
+eureka:
+  instance:
+    # 实例的主机名
+    hostname: peer2
+  client:
+    # 是否向Eureka Server注册自己，以供外部应用发现自己(集群开启)
+    register-with-eureka: true
+    # 是否向Eureka Server获取所有的注册信息表(集群开启)
+    fetch-registry: true
+    # 与Eureka Server通讯的URL地址列
+    service-url:
+      defaultZone: http://peer1:9001/eureka/,http://peer3:9003/eureka/
