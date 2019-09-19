@@ -1,0 +1,17 @@
+server:
+  port: 9901
+
+spring:
+  application:
+    name: MY-CLIENT
+
+eureka:
+  instance:
+    # 服务名
+    appname: ${spring.application.name}
+  client:
+    # 是否向Eureka Server获取所有的注册信息表
+    fetch-registry: true
+    # 与Eureka Server通讯的URL地址列
+    service-url:
+      defaultZone: http://localhost:9001/eureka/,http://localhost:9002/eureka/,http://localhost:9003/eureka/

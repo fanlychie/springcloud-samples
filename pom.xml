@@ -22,6 +22,7 @@
         <module>springcloud-config-server</module>
         <module>springcloud-config-client</module>
         <module>springcloud-eureka-server</module>
+        <module>springcloud-eureka-client</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
