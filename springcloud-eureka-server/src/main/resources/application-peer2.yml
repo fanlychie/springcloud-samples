@@ -17,6 +17,6 @@ eureka:
     register-with-eureka: true
     # 是否向Eureka Server获取所有的注册信息表(集群开启)
     fetch-registry: true
-    # 与Eureka Server通讯的URL地址列
+    # 与Eureka Server通讯的URL地址列(向集群中的其它节点注册自己)
     service-url:
       defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.zh.com:9003/eureka/
