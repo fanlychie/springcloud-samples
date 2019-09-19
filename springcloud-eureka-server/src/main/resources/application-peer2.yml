@@ -8,7 +8,7 @@ spring:
 eureka:
   instance:
     # 实例的主机名
-    hostname: peer2
+    hostname: my-eureka-server.com
   client:
     # 是否向Eureka Server注册自己，以供外部应用发现自己(集群开启)
     register-with-eureka: true
@@ -16,4 +16,4 @@ eureka:
     fetch-registry: true
     # 与Eureka Server通讯的URL地址列
     service-url:
-      defaultZone: http://peer1:9001/eureka/,http://peer3:9003/eureka/
+      defaultZone: http://my-eureka-server.com:9001/eureka/,http://my-eureka-server.com:9003/eureka/
