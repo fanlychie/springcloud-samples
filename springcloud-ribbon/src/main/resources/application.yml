@@ -1,0 +1,28 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: RIBBON-SERVICE
+
+# Ribbon 负载均衡配置
+# 配置格式: <client>.<nameSpace>.<property>=<value>
+# <client>: 服务提供者名称
+# <nameSpace>: 命名空间, 默认是 ribbon
+# <property>: 可选属性参考 com.netflix.client.config.CommonClientConfigKey
+provider-service:
+  ribbon:
+    # 如果项目中同时还引入Eureka依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效
+    # 因此如果项目中引了Ribbon依赖又引了Eureka依赖, 则需要禁用Eureka
+    eureka:
+      enabled: false
+    # 禁用Eureka后, 不能直接通过服务名去调用服务, 而必须要指定服务地址列表
+    listOfServers: my-eureka-server.com:9901,my-eureka-server.com:9902,my-eureka-server.com:9903
+    # 连接超时时间
+    ConnectTimeout: 3000
+    # 处理超时时间
+    ReadTimeout: 5000
+    # 对所有请求进行重试
+    OkToRetryOnAllOperations: true
+    # 切换实例重试的次数
+    MaxAutoRetriesNextServer: 3
