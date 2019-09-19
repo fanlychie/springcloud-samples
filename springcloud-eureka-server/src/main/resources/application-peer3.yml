@@ -16,4 +16,4 @@ eureka:
     fetch-registry: true
     # 与Eureka Server通讯的URL地址列
     service-url:
-      defaultZone: http://my-eureka-server.com:9001/eureka/,http://my-eureka-server.com:9002/eureka/
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/

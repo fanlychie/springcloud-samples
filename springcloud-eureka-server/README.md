@@ -5,14 +5,19 @@
 在文件末尾添加如下内容并保存退出：
 
 ```html
-127.0.0.1	my-eureka-server.com
+# 广州
+127.0.0.1 my-eureka-server.gz.com
+# 深圳
+127.0.0.1 my-eureka-server.sz.com
+# 珠海
+127.0.0.1 my-eureka-server.zh.com
 ```
 
 打开`cmd`输入命令：`ipconfig /flushdns`
 
 ##### 单实例运行
 
-启动`EurekaServerApplication.main()`访问 http://my-eureka-server.com:9000/
+启动`EurekaServerApplication.main()`访问 http://localhost:9000/
 
 ---
 
@@ -38,8 +43,8 @@ java -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=
 java -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer3
 ```
 
-访问 http://my-eureka-server.com:9001/
+访问 http://my-eureka-server.gz.com:9001/
 
-访问 http://my-eureka-server.com:9002/
+访问 http://my-eureka-server.sz.com:9002/
 
-访问 http://my-eureka-server.com:9003/
+访问 http://my-eureka-server.zh.com:9003/

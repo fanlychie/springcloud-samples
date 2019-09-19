@@ -4,7 +4,7 @@ server:
 eureka:
   instance:
     # 实例的主机名
-    hostname: my-eureka-server
+    hostname: eureka-server-single
   client:
     # 是否向Eureka Server注册自己，以供外部应用发现自己(单实例不需要开启)
     register-with-eureka: false
