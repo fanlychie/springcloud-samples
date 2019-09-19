@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: eureka-server-cluster
+    name: EUREKA-SERVER-CLUSTER
 
 eureka:
   instance:
