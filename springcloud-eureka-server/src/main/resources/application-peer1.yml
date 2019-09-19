@@ -10,7 +10,7 @@ spring:
 eureka:
   instance:
     # 实例的主机名
-    # Eureka Server会自动过滤相同的主机名, 因此集群时必须定义不同的主机名
+    # Eureka Server会自动过滤同一主机下相同的hostname, 因此如果是同一主机做集群必须定义不同的主机名
     hostname: my-eureka-server.gz.com
   client:
     # 是否向Eureka Server注册自己，以供外部应用发现自己(集群开启)
