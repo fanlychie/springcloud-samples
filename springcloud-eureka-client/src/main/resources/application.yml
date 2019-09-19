@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: MY-CLIENT
+    name: PROVIDER-SERVICE
 
 eureka:
   instance:
@@ -14,4 +14,4 @@ eureka:
     fetch-registry: true
     # 与Eureka Server通讯的URL地址列
     service-url:
-      defaultZone: http://localhost:9000/eureka/
+      defaultZone: http://my-eureka-server.com:9000/eureka/
