@@ -1,0 +1,19 @@
+server:
+  port: 9902
+
+# Eureka客户端向Eureka Server注册的服务ID
+# Eureka Server会将服务ID相同的服务集群在一起
+spring:
+  application:
+    name: CLIENT-PROVIDER-CLUSTER
+
+eureka:
+  instance:
+    # 服务名
+    appname: ${spring.application.name}
+  client:
+    # 是否向Eureka Server获取所有的注册信息表
+    fetch-registry: true
+    # 与Eureka Server通讯的URL地址列
+    service-url:
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
