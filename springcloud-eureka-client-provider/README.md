@@ -1,10 +1,16 @@
 ##### 单实例运行
 
-启动`EurekaServerApplication.main()`访问 http://localhost:9000/
+springcloud-eureka-server 项目
+
+启动服务注册中心`EurekaServerApplication.main()`访问 http://localhost:9000/
+
+当前项目启动`EurekaClientProviderApplication.main()`访问 http://localhost:9000/
 
 ---
 
 ##### 集群
+
+参考springcloud-eureka-server项目启动服务注册中心集群。
 
 执行打包命令
 

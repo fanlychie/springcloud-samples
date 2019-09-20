@@ -6,23 +6,50 @@ spring:
     name: RIBBON-SERVICE
 
 # Ribbon 负载均衡配置
-# 配置格式: <client>.<nameSpace>.<property>=<value>
-# <client>: 服务提供者名称
+# 全局配置: <nameSpace>.<property>=<value>
+# 对某个服务单独配置: <client>.<nameSpace>.<property>=<value>
+# <client>: 服务ID
 # <nameSpace>: 命名空间, 默认是 ribbon
 # <property>: 可选属性参考 com.netflix.client.config.CommonClientConfigKey
-provider-service:
+CLIENT-PROVIDER-CLUSTER:
   ribbon:
     # 如果项目中同时还引入Eureka依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效
     # 因此如果项目中引了Ribbon依赖又引了Eureka依赖, 则需要禁用Eureka
     eureka:
       enabled: false
-    # 禁用Eureka后, 不能直接通过服务名去调用服务, 而必须要指定服务地址列表
-    listOfServers: my-eureka-server.gz.com:9901,my-eureka-server.sz.com:9902,my-eureka-server.zh.com:9903
-    # 连接超时时间
+    # 禁用Eureka后, 不能直接通过服务ID去调用服务, 而必须要指定服务地址列表, 服务地址列表指定后方可通过服务ID去调用服务
+    listOfServers: localhost:9901,localhost:9902
+    # 请求连接的超时时间
     ConnectTimeout: 3000
-    # 处理超时时间
+    # 请求处理的超时时间
     ReadTimeout: 5000
-    # 对所有请求进行重试
-    OkToRetryOnAllOperations: true
-    # 切换实例重试的次数
-    MaxAutoRetriesNextServer: 3
+    # PING策略: 用于检查服务的可用性
+    # 服务提供者需提供根目录'/'的访问权限, 以供PING操作能正常
+    NFLoadBalancerPingClassName: com.netflix.loadbalancer.PingUrl
+    # 客户端负载均衡策略
+    # RandomRule: 随机, 对服务列表中的服务进行随机选择访问
+    # RoundRobinRule: 轮询, 对服务列表中的服务进行轮询访问
+    # WeightedResponseTimeRule: 权重, 对服务列表中的服务根据其平均响应时间计算每个服务的权重, 响应快的服务权重高, 被选中的概率越大
+    # AvailabilityFilteringRule: 过滤掉服务列表中故障和并发请求数量超过阀值的服务, 然后采用轮询策略对剩余的服务列表进行服务访问
+    # RetryRule: 对服务列表中的服务采用轮询的方式进行访问, 如果失败则进行重试
+    # BestAvailableRule: 剔除服务列表中故障的服务, 然后选择最空闲(并发访问数量最小)的服务进行访问
+    # ZoneAvoidanceRule: 默认策略, 通过判断服务所在的区域和性能来选择一个服务访问
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
+
+eureka:
+  client:
+    # 是否把自己作为服务注册到其他服务注册中心
+    register-with-eureka: false
+    # 是否从其他的服务中心同步服务列表
+    fetch-registry: true
+    # 服务注册中心列表
+    service-url:
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
+
+# 服务提供者配置
+client:
+  provider:
+    # 服务提供者在Eureka Server中注册的服务ID
+    service-id: CLIENT-PROVIDER-CLUSTER
+    # 在Eureka Client中, 通过服务ID访问服务提供者
+    service-url: http://${client.provider.service-id}/
