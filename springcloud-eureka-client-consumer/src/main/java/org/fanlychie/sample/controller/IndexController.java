@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class IndexController {
 
-    @Value("${client.provider.serviceUrl}")
+    @Value("${client.provider.service-url}")
     private String serviceUrl;
 
     @Autowired

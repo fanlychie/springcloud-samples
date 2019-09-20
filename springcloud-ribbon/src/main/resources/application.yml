@@ -17,7 +17,7 @@ provider-service:
     eureka:
       enabled: false
     # 禁用Eureka后, 不能直接通过服务名去调用服务, 而必须要指定服务地址列表
-    listOfServers: my-eureka-server.com:9901,my-eureka-server.com:9902,my-eureka-server.com:9903
+    listOfServers: my-eureka-server.gz.com:9901,my-eureka-server.sz.com:9902,my-eureka-server.zh.com:9903
     # 连接超时时间
     ConnectTimeout: 3000
     # 处理超时时间
