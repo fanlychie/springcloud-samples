@@ -5,11 +5,8 @@
 在文件末尾添加如下内容并保存退出：
 
 ```html
-# 广州
 127.0.0.1 my-eureka-server.gz.com
-# 深圳
 127.0.0.1 my-eureka-server.sz.com
-# 珠海
 127.0.0.1 my-eureka-server.zh.com
 ```
 
@@ -32,15 +29,15 @@ mvn clean -U -e package
 到`target`目录下执行启动多个实例的命令：
 
 ```shell
-java -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer1
+java -Xms60m -Xmx200m -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer1
 ```
 
 ```shell
-java -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer2
+java -Xms60m -Xmx200m -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer2
 ```
 
 ```shell
-java -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer3
+java -Xms60m -Xmx200m -jar springcloud-eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer3
 ```
 
 访问 http://my-eureka-server.gz.com:9001/

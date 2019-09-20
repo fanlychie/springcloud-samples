@@ -21,11 +21,11 @@ mvn clean -U -e package
 到`target`目录下执行启动多个实例的命令：
 
 ```shell
-java -jar springcloud-eureka-client-provider-0.0.1-SNAPSHOT.jar --spring.profiles.active=replica1
+java -Xms60m -Xmx200m -jar springcloud-eureka-client-provider-0.0.1-SNAPSHOT.jar --spring.profiles.active=replica1
 ```
 
 ```shell
-java -jar springcloud-eureka-client-provider-0.0.1-SNAPSHOT.jar --spring.profiles.active=replica2
+java -Xms60m -Xmx200m -jar springcloud-eureka-client-provider-0.0.1-SNAPSHOT.jar --spring.profiles.active=replica2
 ```
 
 访问 http://my-eureka-server.gz.com:9001/
