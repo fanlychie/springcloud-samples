@@ -9,7 +9,7 @@ eureka:
   instance:
     # 实例的主机名
     hostname: localhost
-  # Eureka Server默认情会把自己当做客户端来注册自己, 单例场景下禁用它向自己注册自己
+  # Eureka Server默认情会把自己当做客户端来注册自己, 单节点场景下禁用它向自己注册自己
   client:
     # 是否把自己作为服务注册到其他服务注册中心
     register-with-eureka: false
