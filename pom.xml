@@ -25,6 +25,7 @@
         <module>springcloud-eureka-client-provider</module>
         <module>springcloud-eureka-client-consumer</module>
         <module>springcloud-ribbon</module>
+        <module>springcloud-feign</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>

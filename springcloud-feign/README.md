@@ -1,0 +1,1 @@
+先启动`springcloud-config-server`，然后再启动当前项目的单元测试用例。

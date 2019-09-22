@@ -1,0 +1,20 @@
+server:
+  port: 9990
+
+spring:
+  application:
+    name: FEIGN-CONSUMER-SERVICE
+
+eureka:
+  client:
+    # 是否把自己作为服务注册到其他服务注册中心
+    register-with-eureka: false
+    # 是否从其他的服务中心同步服务列表
+    fetch-registry: true
+    # 服务注册中心列表
+    service-url:
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
+
+
+
+
