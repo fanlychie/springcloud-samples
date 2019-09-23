@@ -1,5 +1,5 @@
 server:
-  port: 9990
+  port: 9999
 
 spring:
   application:
@@ -15,6 +15,23 @@ eureka:
     service-url:
       defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
 
-
-
+# Feign 配置
+# feign.client.config.feignName.<property>=<value>
+# feignName: 全局配置的名称为 default
+# <property>: 参考 org.springframework.cloud.openfeign.FeignClientProperties.FeignClientConfiguration
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+        # contract: feign.Contract.Default
+  httpclient:
+    # 启用 HttpClient
+    enabled: true
+    # 最大连接数, 超出这个阀值的请求会排队等候
+    max-connections: 200
+    # 每个路由的最大连接数(支持并发的最大数)
+    max-connections-per-route: 50
+    # 连接存活时间/秒
+    time-to-live: 900
 
