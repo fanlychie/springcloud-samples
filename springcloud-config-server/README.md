@@ -1,3 +1,7 @@
+### 配置中心 (服务端)
+
+---
+
 配置文件的仓库地址：https://github.com/fanlychie/mdfile
 
 目录结构：

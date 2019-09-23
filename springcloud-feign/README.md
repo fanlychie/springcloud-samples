@@ -1,4 +1,8 @@
-##### Feign (声明式HTTP客户端, 内部整合了 Ribbon)
+### 声明式HTTP客户端 (内部整合了Ribbon)
+
+---
+
+##### 单实例运行
 
 参考springcloud-eureka-server项目启动服务注册中心集群。
 
