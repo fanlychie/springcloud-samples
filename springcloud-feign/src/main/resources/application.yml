@@ -23,11 +23,17 @@ feign:
   client:
     config:
       default:
+        # Feign 日志级别:
+        # NONE: 不记录日志
+        # BASIC: 只记录一些基础的请求信息, 如请求方法,地址,响应码,执行时间
+        # HEADERS: 只记录一些基础的请求信息, 如响应头信息
+        # FULL: 记录完整的请求信息
         loggerLevel: FULL
-        # contract: feign.Contract.Default
   httpclient:
     # 启用 HttpClient
     enabled: true
+    # 请求连接超时时间
+    connection-timeout: 3000
     # 最大连接数, 超出这个阀值的请求会排队等候
     max-connections: 200
     # 每个路由的最大连接数(支持并发的最大数)
