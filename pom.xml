@@ -26,6 +26,7 @@
         <module>springcloud-eureka-client-consumer</module>
         <module>springcloud-ribbon</module>
         <module>springcloud-feign</module>
+        <module>springcloud-hystrix</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
