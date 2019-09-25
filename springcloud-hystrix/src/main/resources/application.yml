@@ -1,0 +1,76 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: FEIGN-HYSTRIX-CONSUMER-SERVICE
+
+# 全局配置方式
+# 若项目中同时引入Eureka和Ribbon依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效, 因此需要禁用Eureka
+ribbon:
+  eureka:
+    enabled: false
+
+# Ribbon 负载均衡配置
+# 全局配置: <nameSpace>.<property>=<value>
+# 特定服务配置: <client>.<nameSpace>.<property>=<value>
+# <client>: 服务ID (自定义, 届时可通过此服务ID经Ribbon负载访问listOfServers列表中的服务, 如 http://client/your_method)
+# <nameSpace>: 命名空间, 默认是 ribbon
+# <property>: 参见 com.netflix.client.config.CommonClientConfigKey
+CLIENT-PROVIDER-CLUSTER:
+  ribbon:
+    # 禁用Eureka后, 不能直接通过服务ID去调用服务, 而必须要指定服务地址列表, 服务地址列表指定后方可通过服务ID去调用服务
+    listOfServers: localhost:9901,localhost:9902
+    # 请求连接的超时时间
+    ConnectTimeout: 3000
+    # 请求处理的超时时间
+    ReadTimeout: 5000
+    # PING策略: 用于检查服务的可用性
+    # PingUrl: PING提供者的'/'根路径, 以确认服务提供者是否正常, 服务提供者需要支持'/'访问
+    # NoOpPing: 不PING服务提供者, 永远返回true
+    # PingConstant: 不PING服务提供者, 固定返回设定的值, 默认返回true
+    # DummyPing: 不PING服务提供者, 永远返回true
+    # NIWSDiscoveryPing: 根据负载提供的信息判定, 如果服务是UP状态, 则返回true
+    NFLoadBalancerPingClassName: com.netflix.loadbalancer.PingUrl
+    # 客户端负载均衡策略
+    # RandomRule: 随机, 对服务列表中的服务进行随机选择访问
+    # RoundRobinRule: 轮询, 对服务列表中的服务进行轮询访问
+    # WeightedResponseTimeRule: 权重, 对服务列表中的服务根据其平均响应时间计算每个服务的权重, 响应快的服务权重高, 被选中的概率越大
+    # AvailabilityFilteringRule: 过滤掉服务列表中故障和并发请求数量超过阀值的服务, 然后采用轮询策略对剩余的服务列表进行服务访问
+    # RetryRule: 对服务列表中的服务采用轮询的方式进行访问, 如果失败则进行重试
+    # BestAvailableRule: 剔除服务列表中故障的服务, 然后选择最空闲(并发访问数量最小)的服务进行访问
+    # ZoneAvoidanceRule: 默认策略, 通过判断服务所在的区域和性能来选择一个服务访问
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
+    # 重试机制, 需要引入spring-retry依赖才起效
+    # 对选择的当前实例请求失败重试的次数, 如果重试次数超出设定的这个阀值, 则触发切换请求另外一个实例
+    MaxAutoRetries: 1
+    # 失败切换实例的次数, 如果切换实例的次数超出设定的这个阀值, 则返回调用失败
+    MaxAutoRetriesNextServer: 1
+
+# Feign 声明式客户端配置
+# feign.client.config.feignName.<property>=<value>
+# feignName: 全局配置的名称为 default
+# <property>: 参考 org.springframework.cloud.openfeign.FeignClientProperties.FeignClientConfiguration
+feign:
+  client:
+    config:
+      default:
+        # Feign 日志级别:
+        # NONE: 不记录日志
+        # BASIC: 只记录一些基础的请求信息, 如请求方法,地址,响应码,执行时间
+        # HEADERS: 只记录一些基础的请求信息, 如响应头信息
+        # FULL: 记录完整的请求信息
+        loggerLevel: FULL
+  httpclient:
+    # 启用 HttpClient
+    enabled: true
+    # 最大连接数, 超出这个阀值的请求会排队等候
+    max-connections: 200
+    # 每个路由的最大连接数(支持并发的最大数)
+    max-connections-per-route: 50
+    # 连接存活时间/秒
+    time-to-live: 900
+  hystrix:
+    enabled: true
+
+

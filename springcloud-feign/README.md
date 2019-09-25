@@ -1,4 +1,6 @@
-### 声明式HTTP客户端 (内部整合了Ribbon)
+### 声明式HTTP客户端
+
+`feign` + `ribbon` 示例
 
 ---
 
