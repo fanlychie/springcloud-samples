@@ -1,4 +1,6 @@
-### 声明式HTTP客户端
+### Spring Cloud Feign
+
+`Feign`是一个声明式的HTTP客户端，可以更便捷和优雅地调用HTTP API/RESTful API。
 
 `feign` + `ribbon` 示例
 
