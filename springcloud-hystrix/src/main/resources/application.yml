@@ -40,7 +40,7 @@ CLIENT-PROVIDER-CLUSTER:
     # RetryRule: 对服务列表中的服务采用轮询的方式进行访问, 如果失败则进行重试
     # BestAvailableRule: 剔除服务列表中故障的服务, 然后选择最空闲(并发访问数量最小)的服务进行访问
     # ZoneAvoidanceRule: 默认策略, 通过判断服务所在的区域和性能来选择一个服务访问
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
     # 重试机制, 需要引入spring-retry依赖才起效
     # 对选择的当前实例请求失败重试的次数, 如果重试次数超出设定的这个阀值, 则触发切换请求另外一个实例
     MaxAutoRetries: 1
@@ -70,7 +70,44 @@ feign:
     max-connections-per-route: 50
     # 连接存活时间/秒
     time-to-live: 900
+  # 启用熔断机制
   hystrix:
     enabled: true
 
-
+# Hystrix Command 配置
+# hystrix.command.default.*: 全局配置, 属性配置参考 com.netflix.hystrix.HystrixCommandProperties
+# hystrix.command.[commandKey].* ：特定服务配置, commandKey是服务ID或@HystrixCommand的commandKey
+hystrix:
+  command:
+    default:
+      # 线程隔离配置
+      execution:
+        timeout:
+          # 是否启用执行超时, 默认开启
+          enabled: true
+        isolation:
+          thread:
+            # 执行超时时间, 如果超时则进入服务降级方法处理, 默认是1000毫秒
+            timeoutInMilliseconds: 3000
+      # 滚动窗口配置
+      # 滚动窗口是hystrix用于收集服务健康指标的信息
+      metrics:
+        rollingStats:
+          # 滚动窗口的长度, 它是hystrix收集服务健康指标信息时所持续的时间, 默认是10000毫秒
+          timeInMilliseconds: 10000
+          # 滚动窗口的桶数量, 桶是hystrix统计滚动窗口数据的最小单位, 默认是10个
+          # hystrix会根据配置的窗口长度均匀分配给每个桶, 每个桶收集服务健康指标信息所持续的时长为 timeInMilliseconds/numBuckets
+          # 默认情况下(滚动窗口长度是10秒, 桶的数量是10个), 每个滚动窗口收集统计的是1秒内的请求数据
+          numBuckets: 10
+      # 熔断器配置
+      circuitBreaker:
+        # 是否启用熔断器
+        enabled: true
+        # 在滚动窗口中，断路器熔断的最小请求数, 默认20
+        requestVolumeThreshold: 20
+        # 请求失败的百分比数达到多少时启动断路器熔断, 默认是50
+        # 默认情况下(滚动窗口长度是10秒), 10秒内收到的请求数量，其失败的比例超过50%, 且失败的数量超过requestVolumeThreshold设定的阀值, 断路器就会打开
+        # 如服务10秒内收到3个请求, 且这3个请求全部失败, 其失败率为100%>50%, 但是断路器不会打开, 因为3<requestVolumeThreshold设定的阀值(默认20)
+        errorThresholdPercentage: 50
+        # 当断路器处理打开状态时, 所有的请求都会快速失败, 5000
+        sleepWindowInMilliseconds:

@@ -1,10 +1,9 @@
 package org.fanlychie.sample.controller;
 
+import org.fanlychie.sample.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author fanlychie
@@ -13,15 +12,12 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class IndexController {
 
-    @Value("${client.provider.service-url}")
-    private String serviceUrl;
-
     @Autowired
-    private RestTemplate restTemplate;
+    private MessageService messageService;
 
     @GetMapping("/")
     public String index() {
-        return restTemplate.getForObject(serviceUrl + "sayHi", String.class);
+        return messageService.sayHi();
     }
 
 }
