@@ -74,21 +74,22 @@ feign:
   hystrix:
     enabled: true
 
-# Hystrix Command 配置
-# hystrix.command.default.*: 全局配置, 属性配置参考 com.netflix.hystrix.HystrixCommandProperties
-# hystrix.command.[commandKey].* ：特定服务配置, commandKey是服务ID或@HystrixCommand的commandKey
+# Hystrix 配置
 hystrix:
+  # Hystrix Command 配置
+  # hystrix.command.default.*: 全局配置, 属性配置参考 com.netflix.hystrix.HystrixCommandProperties
+  # hystrix.command.[commandKey].* ：特定服务配置, commandKey是服务ID或@HystrixCommand的commandKey
   command:
     default:
       # 线程隔离配置
       execution:
-        timeout:
-          # 是否启用执行超时, 默认开启
-          enabled: true
         isolation:
           thread:
             # 执行超时时间, 如果超时则进入服务降级方法处理, 默认是1000毫秒
-            timeoutInMilliseconds: 3000
+            timeoutInMilliseconds: 5000
+        timeout:
+          # 是否启用执行超时, 默认开启
+          enabled: true
       # 滚动窗口配置
       # 滚动窗口是hystrix用于收集服务健康指标的信息
       metrics:
@@ -109,5 +110,26 @@ hystrix:
         # 默认情况下(滚动窗口长度是10秒), 10秒内收到的请求数量，其失败的比例超过50%, 且失败的数量超过requestVolumeThreshold设定的阀值, 断路器就会打开
         # 如服务10秒内收到3个请求, 且这3个请求全部失败, 其失败率为100%>50%, 但是断路器不会打开, 因为3<requestVolumeThreshold设定的阀值(默认20)
         errorThresholdPercentage: 50
-        # 当断路器处理打开状态时, 所有的请求都会快速失败, 5000
-        sleepWindowInMilliseconds:
+        # 当断路器的熔断状态打开后, 窗口休眠的时间, 默认是5000毫秒
+        # 休眠时间过后, hystrix将形态切换到半开状态, 然后放行一个请求, 如果该请求处理成功, 则将熔断器的状态切换回关闭状态, 否则切换到打开状态
+        # 断路器状态打开后, 所有的请求都会快速失败, 执行fallback的逻辑
+        sleepWindowInMilliseconds: 5000
+  # Hystrix ThreadPool 配置
+  # hystrix.threadpool.default.*: 全局配置, 属性配置参考 com.netflix.hystrix.HystrixThreadPoolProperties
+  # hystrix.threadpool.[commandKey].* ：特定服务配置, commandKey是服务ID或@HystrixCommand的commandKey
+  threadpool:
+    default:
+      # 核心线程数, 即最大支持的并发数量, 默认10
+      coreSize: 10
+      # 是否允许线程池大小自动扩展到maximumSize设定的最大线程数量, 默认false
+      allowMaximumSizeToDivergeFromCoreSize: true
+      # 线程池最大的大小, 如果allowMaximumSizeToDivergeFromCoreSize为false, 则此项配置无效
+      maximumSize: 15
+      # 当线程池大小自动扩展到超出coreSize设定的阀值时, 在线程池空闲的时候, 超出coreSize大小的线程将被回收
+      # 在这些线程被回收前, 线程最大存活的时间, 默认1分钟
+      keepAliveTimeMinutes: 1
+      # 线程池等待获取线程的最大队列大小, 默认-1, 表示不限制
+      # 当线程池中无可用线程时, 新来的请求会进入此队列中排队等待获取线程, 若请求数量超出队列大小时, 其余请求将被拒绝掉
+      maxQueueSize: 8
+      # 当队列大小超出这个阀值时, 即使队列未满, 其余的请求也将被拒绝掉, 默认5
+      queueSizeRejectionThreshold: 5
