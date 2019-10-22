@@ -29,6 +29,7 @@
         <module>springcloud-hystrix</module>
         <module>springcloud-zuul</module>
         <module>springcloud-bus</module>
+        <module>springcloud-sleuth</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
