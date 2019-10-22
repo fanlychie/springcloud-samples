@@ -6,7 +6,7 @@ spring:
     name: RIBBON-CONSUMER-SERVICE
 
 # 全局配置方式
-# 若项目中同时引入Eureka和Ribbon依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效, 因此需要禁用Eureka
+# 若项目中同时引入Eureka和Ribbon依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效, 需要禁用Eureka
 ribbon:
   eureka:
     enabled: false
