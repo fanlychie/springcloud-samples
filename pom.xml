@@ -28,6 +28,7 @@
         <module>springcloud-feign</module>
         <module>springcloud-hystrix</module>
         <module>springcloud-zuul</module>
+        <module>springcloud-bus</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
