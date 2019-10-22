@@ -14,3 +14,14 @@ Zuul中的过滤器总共有4种类型：
     - 在route和error执行完成之后执行。这种过滤器将请求路由到达具体的服务之后执行。适用于需要添加响应头，记录响应日志等应用场景。
 * `error`
     - 处理请求发生错误时执行。可以用来统一记录错误信息。
+
+
+---
+
+##### 单实例运行
+
+参考springcloud-eureka-server项目启动服务注册中心集群。
+
+参考springcloud-eureka-client-provider项目启动服务提供者集群。
+
+启动服务消费者`ZuulApplication.main()`访问 http://localhost:8888/api/provider/sayHi
