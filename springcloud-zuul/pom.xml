@@ -10,6 +10,11 @@
     <artifactId>springcloud-zuul</artifactId>
     <packaging>jar</packaging>
     <dependencies>
+        <!-- eureka -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <!-- zuul -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -30,6 +35,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

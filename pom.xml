@@ -30,6 +30,8 @@
         <module>springcloud-zuul</module>
         <module>springcloud-bus</module>
         <module>springcloud-sleuth</module>
+        <module>springcloud-ribbon-eureka</module>
+        <module>microservice</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>

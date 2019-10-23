@@ -5,11 +5,19 @@ spring:
   application:
     name: FEIGN-HYSTRIX-CONSUMER-SERVICE
 
-# 全局配置方式
-# 若项目中同时引入Eureka和Ribbon依赖, 会触发Eureka中实现的Ribbon自动化配置, 导致项目配置被覆盖无效, 因此需要禁用Eureka
-ribbon:
-  eureka:
-    enabled: false
+# 服务发现与注册中心配置
+eureka:
+  instance:
+    # 服务名
+    appname: ${spring.application.name}
+  client:
+    # 是否把自己作为服务注册到其他服务注册中心
+    register-with-eureka: false
+    # 是否从其他的服务中心同步服务列表
+    fetch-registry: true
+    # 服务注册中心列表
+    service-url:
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
 
 # Ribbon 负载均衡配置
 # 全局配置: <nameSpace>.<property>=<value>
@@ -19,8 +27,6 @@ ribbon:
 # <property>: 参见 com.netflix.client.config.CommonClientConfigKey
 CLIENT-PROVIDER-CLUSTER:
   ribbon:
-    # 禁用Eureka后, 不能直接通过服务ID去调用服务, 而必须要指定服务地址列表, 服务地址列表指定后方可通过服务ID去调用服务
-    listOfServers: localhost:9901,localhost:9902
     # 请求连接的超时时间
     ConnectTimeout: 3000
     # 请求处理的超时时间
