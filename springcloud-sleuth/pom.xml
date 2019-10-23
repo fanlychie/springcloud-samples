@@ -8,11 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>springcloud-sleuth</artifactId>
-    <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-    </dependencies>
+    <packaging>pom</packaging>
+    <modules>
+        <module>service-user</module>
+        <module>service-article</module>
+    </modules>
 </project>
