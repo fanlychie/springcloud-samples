@@ -15,6 +15,8 @@
 
 ### 内置断言
 
+用于匹配HTTP请求，如果匹配成功，则进行路由转发。
+
 内置断言(`org.springframework.cloud.gateway.handler.predicate.*`)：
 
 * `After`(AfterRoutePredicateFactory)
@@ -151,7 +153,111 @@ spring:
 
 ### 内置过滤器
 
+可以改变HTTP请求的入参和HTTP响应的结果。
+
 内置过滤器(`org.springframework.cloud.gateway.filter.factory.*`)：
+
+* `AddRequestHeader`(AddRequestHeaderGatewayFilterFactory)
+    - 添加请求头(AddRequestHeader=Key, Value)
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: add_request_header_route
+        uri: https://example.org
+        predicates:
+        - Path=/foo/{segment}
+        filters:
+        - AddRequestHeader=X-Request-Foo, Bar-{segment}
+```
+
+* `AddRequestParameter`(XXXXXXXXX)
+    - 添加请求参数(AddRequestParameter=Key, Value)
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: add_request_parameter_route
+        uri: https://example.org
+        filters:
+        - AddRequestParameter=foo, bar
+```
+
+* `AddResponseHeader`(XXXXXXXXX)
+    - 添加响应头
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: add_response_header_route
+        uri: https://example.org
+        predicates:
+        - Host: {segment}.myhost.org
+        filters:
+        - AddResponseHeader=foo, bar-{segment}
+```
+
+* `PrefixPath`(XXXXXXXXX)
+    - 路由转发请求时，自动加上PrefixPath的值进行转发
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: prefixpath_route
+        uri: https://example.org
+        filters:
+        - PrefixPath=/mypath
+```
+
+* `RewritePath`(XXXXXXXXX)
+    - 重写请求路径，如下配置/foo/bar的请求会转发到/bar
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: rewritepath_route
+        uri: https://example.org
+        predicates:
+        - Path=/foo/**
+        filters:
+        - RewritePath=/foo/(?<segment>.*), /$\{segment}
+```
+
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
+* `XXXXXXXXX`(XXXXXXXXX)
+    - XXXXXXXXX
+```
+YYYYYYYYYYYYYYYYYYYYYYYY
+```
 
 ---
 
