@@ -32,6 +32,7 @@
         <module>springcloud-bus</module>
         <module>springcloud-sleuth</module>
         <module>springcloud-zipkin</module>
+        <module>springcloud-gateway</module>
     </modules>
 	<dependencyManagement>
 		<dependencies>
