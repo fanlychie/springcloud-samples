@@ -2,7 +2,7 @@ package org.fanlychie.sample.controller;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.fanlychie.sample.service.UserService;
+import org.fanlychie.sample.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-import static org.fanlychie.sample.service.UserService.*;
+import static org.fanlychie.sample.facade.UserFacade.*;
 
 /**
  * @author fanlychie
@@ -21,7 +21,7 @@ import static org.fanlychie.sample.service.UserService.*;
 public class ArticleController {
 
     @Autowired
-    private UserService userService;
+    private UserFacade userFacade;
 
     @GetMapping("/")
     public String ping() {
@@ -33,7 +33,7 @@ public class ArticleController {
     public Article query(String title) {
         log.info("======>> request data: {}", title);
         if (Objects.equals(title, "springcloud")) {
-            return new Article("springcloud", "Hello Spring Cloud", userService.query("fanlychie"));
+            return new Article("springcloud", "Hello Spring Cloud", userFacade.query("fanlychie"));
         }
         return null;
     }

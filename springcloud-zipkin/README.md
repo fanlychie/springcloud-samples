@@ -15,3 +15,15 @@ java -jar zipkin-server-2.18.3-exec.jar
 ```
 
 访问 http://localhost:9411
+
+---
+
+##### 单实例运行
+
+参考springcloud-eureka-server项目启动服务注册中心集群。
+
+启动服务提供者`UserFacadeApplication.main()`
+
+启动服务消费者`ArticleFacadeApplication.main()` 访问 http://localhost:8660/article/query?title=springcloud
+
+访问 http://localhost:9411

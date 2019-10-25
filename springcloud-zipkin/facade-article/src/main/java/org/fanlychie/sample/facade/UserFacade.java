@@ -1,12 +1,12 @@
-package org.fanlychie.sample.service;
+package org.fanlychie.sample.facade;
 
 import lombok.Data;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("USER-SERVICE")
-public interface UserService {
+@FeignClient("USER-FACADE")
+public interface UserFacade {
 
     @GetMapping("/user/query")
     User query(@RequestParam String username);

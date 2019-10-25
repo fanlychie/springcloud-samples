@@ -12,10 +12,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class ArticleServiceApplication {
+public class ArticleFacadeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ArticleServiceApplication.class, args);
+		SpringApplication.run(ArticleFacadeApplication.class, args);
 	}
 
 }

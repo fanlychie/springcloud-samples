@@ -3,7 +3,15 @@ server:
 
 spring:
   application:
-    name: ARTICLE-SERVICE
+    name: ARTICLE-FACADE
+  # zipkin 配置
+  zipkin:
+    # 服务地址
+    base-url: http://localhost:9411
+  # 采样率
+  sleuth:
+    sampler:
+      probability: 1.0
 
 # 服务发现与注册中心配置
 eureka:
@@ -70,4 +78,3 @@ feign:
     max-connections-per-route: 50
     # 连接存活时间/秒
     time-to-live: 900
-
