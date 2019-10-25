@@ -172,7 +172,7 @@ spring:
         - AddRequestHeader=X-Request-Foo, Bar-{segment}
 ```
 
-* `AddRequestParameter`(XXXXXXXXX)
+* `AddRequestParameter`(AddRequestParameterGatewayFilterFactory)
     - 添加请求参数(AddRequestParameter=Key, Value)
 ```
 spring:
@@ -185,7 +185,7 @@ spring:
         - AddRequestParameter=foo, bar
 ```
 
-* `AddResponseHeader`(XXXXXXXXX)
+* `AddResponseHeader`(AddResponseHeaderGatewayFilterFactory)
     - 添加响应头
 ```
 spring:
@@ -200,7 +200,7 @@ spring:
         - AddResponseHeader=foo, bar-{segment}
 ```
 
-* `PrefixPath`(XXXXXXXXX)
+* `PrefixPath`(PrefixPathGatewayFilterFactory)
     - 路由转发请求时，自动加上PrefixPath的值进行转发
 ```
 spring:
@@ -213,8 +213,8 @@ spring:
         - PrefixPath=/mypath
 ```
 
-* `RewritePath`(XXXXXXXXX)
-    - 重写请求路径，如下配置/foo/bar的请求会转发到/bar
+* `RewritePath`(RewritePathGatewayFilterFactory)
+    - 重写请求路径(yml文档中`$`要写成`$\`)，如下配置/foo/bar的请求会转发到/bar
 ```
 spring:
   cloud:
@@ -226,6 +226,44 @@ spring:
         - Path=/foo/**
         filters:
         - RewritePath=/foo/(?<segment>.*), /$\{segment}
+```
+
+* `SetPath`(SetPathGatewayFilterFactory)
+    - 重置请求地址, 如下配置/foo/bar的请求会被重置为/bar
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: setpath_route
+        uri: https://example.org
+        predicates:
+        - Path=/foo/{segment}
+        filters:
+        - SetPath=/{segment}
+```
+
+* `Retry`(RetryGatewayFilterFactory)
+    - 重试机制
+```
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: retry_test
+        uri: http://localhost:8080/flakey
+        predicates:
+        - Host=*.retry.com
+        filters:
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+            backoff:
+              firstBackoff: 10ms
+              maxBackoff: 50ms
+              factor: 2
+              basedOnPreviousValue: false
 ```
 
 更多详见 https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.3.RELEASE/single/spring-cloud-gateway.html

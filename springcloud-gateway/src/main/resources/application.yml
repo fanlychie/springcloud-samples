@@ -18,6 +18,15 @@ spring:
             - Path=/provider/**
           filters:
             - RewritePath=/provider/(?<segment>.*), /$\{segment}
+            - name: Retry
+              args:
+                retries: 3
+                statuses:
+                  - BAD_GATEWAY
+                methods:
+                  - GET
+                  - POST
+
 
 # 服务发现与注册中心配置
 eureka:
