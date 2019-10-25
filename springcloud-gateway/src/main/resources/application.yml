@@ -1,0 +1,34 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    # 网关配置
+    gateway:
+      # 路由配置
+      routes:
+        # 路由ID(唯一)
+        - id: CLIENT-PROVIDER-CLUSTER
+          # 路由的转发地址, lb://注册到Eureka中的服务ID
+          uri: lb://CLIENT-PROVIDER-CLUSTER
+          # 断言, 匹配的才会路由到服务
+          predicates:
+            - Path=/provider/**
+          filters:
+            - RewritePath=/provider/(?<segment>.*), /$\{segment}
+
+# 服务发现与注册中心配置
+eureka:
+  instance:
+    # 服务名
+    appname: ${spring.application.name}
+  client:
+    # 是否把自己(当前服务)注册到服务注册和发现中心(以供其它服务发现)
+    register-with-eureka: false
+    # 是否从服务注册和发现中心检索同步注册的服务列表信息
+    fetch-registry: true
+    # 服务注册中心列表
+    service-url:
+      defaultZone: http://my-eureka-server.gz.com:9001/eureka/,http://my-eureka-server.sz.com:9002/eureka/,http://my-eureka-server.zh.com:9003/eureka/
