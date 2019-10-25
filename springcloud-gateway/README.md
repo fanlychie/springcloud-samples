@@ -228,36 +228,7 @@ spring:
         - RewritePath=/foo/(?<segment>.*), /$\{segment}
 ```
 
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
-* `XXXXXXXXX`(XXXXXXXXX)
-    - XXXXXXXXX
-```
-YYYYYYYYYYYYYYYYYYYYYYYY
-```
+更多详见 https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.3.RELEASE/single/spring-cloud-gateway.html
 
 ---
 
