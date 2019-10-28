@@ -17,16 +17,33 @@ spring:
           predicates:
             - Path=/provider/**
           filters:
+            # /provider/* 的请求重写成 /*
+            # (yml文档中`$`要写成`$\`)
             - RewritePath=/provider/(?<segment>.*), /$\{segment}
+            # 重试机制
             - name: Retry
               args:
+                # 重试3次
                 retries: 3
+                # 哪些状态需要重试
+                # statuses 和 series 至少选其一
+                # org.springframework.http.HttpStatus
                 statuses:
                   - BAD_GATEWAY
+                # 哪些状态需要重试
+                # statuses 和 series 至少选其一
+                # org.springframework.http.HttpStatus.Series
+                series:
+                  - SERVER_ERROR
+                # 不支持POST, PUT
                 methods:
                   - GET
-                  - POST
-
+                # 哪些异常需要重试
+                exceptions:
+                  - java.io.IOException
+            # 自定义过滤器
+            - MyPre=a, b
+            - MyPost=c, d
 
 # 服务发现与注册中心配置
 eureka:

@@ -17,6 +17,8 @@
 
 用于匹配HTTP请求，如果匹配成功，则进行路由转发。
 
+`X*RoutePredicateFactory`命名规则的断言, 其配置名称为`X*`。
+
 内置断言(`org.springframework.cloud.gateway.handler.predicate.*`)：
 
 * `After`(AfterRoutePredicateFactory)
@@ -154,6 +156,8 @@ spring:
 ### 内置过滤器
 
 可以改变HTTP请求的入参和HTTP响应的结果。
+
+`X*GatewayFilterFactory`命名规则的过滤器, 其配置名称为`X*`。
 
 内置过滤器(`org.springframework.cloud.gateway.filter.factory.*`)：
 
