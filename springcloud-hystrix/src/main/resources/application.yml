@@ -139,3 +139,32 @@ hystrix:
       maxQueueSize: 8
       # 当队列大小超出这个阀值时, 即使队列未满, 其余的请求也将被拒绝掉, 默认5
       queueSizeRejectionThreshold: 5
+
+## actuator 配置
+management:
+  server:
+    # 监控应用端口
+    port: 9090
+    servlet:
+      # 上下文访问路径
+      context-path: /
+  endpoint:
+    shutdown:
+      # 允许通过接口(POST方式)安全关闭SpringBoot应用
+      enabled: true
+    health:
+      # 显示健康信息详情
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        # 激活 hystrix Endpoints
+        include:
+          - hystrix.stream
+
+# turbine 配置
+turbine:
+  # 需要监控的应用名称，默认逗号隔开
+  app-config: CLIENT-PROVIDER-CLUSTER
+  cluster-name-expression: "default"
+  combine-host-port: true

@@ -20,3 +20,44 @@
 参考springcloud-eureka-client-provider项目启动服务提供者集群。
 
 启动服务消费者`HystrixApplication.main()`访问 http://localhost:9999/
+
+#### Hystrix Dashboard
+
+```xml
+<!-- hystrix dashboard -->
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+</dependency>
+<!-- actuator -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<!-- turbine -->
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-turbine</artifactId>
+</dependency>
+```
+
+访问 Endpoint http://localhost:9090/actuator/hystrix.stream
+
+访问 http://localhost:9999/hystrix
+
+访问 http://localhost:9999/turbine.stream
+
+第一行长输入框地址填入：
+
+Hystrix Dashboard 支持三种不同的监控方式：
+
+* 默认的集群监控
+    - http://turbine-hostname:port/turbine.stream
+* 指定的集群监控
+    - http://turbine-hostname:port/turbine.stream?cluster=[clusterName]
+* 单体应用的监控
+    - http://hystrix-app:port/actuator/hystrix.stream
+
+http://localhost:9090/actuator/hystrix.stream
+
+http://localhost:9999/turbine.stream
