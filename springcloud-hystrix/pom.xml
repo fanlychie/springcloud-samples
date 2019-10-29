@@ -51,10 +51,10 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<!-- turbine -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-turbine</artifactId>
-		</dependency>
+		</dependency>-->
 		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

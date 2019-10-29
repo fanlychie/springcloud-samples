@@ -159,12 +159,10 @@ management:
     web:
       exposure:
         # 激活 hystrix Endpoints
-        include:
-          - hystrix.stream
+        include: hystrix.stream
 
-# turbine 配置
-turbine:
-  # 需要监控的应用名称，默认逗号隔开
-  app-config: CLIENT-PROVIDER-CLUSTER
-  cluster-name-expression: "default"
-  combine-host-port: true
+#turbine:
+#  appConfig: CLIENT-PROVIDER-CLUSTER
+#  clusterNameExpression: new String("default")
+#  combine-host-port: true
+#  instanceUrlSuffix: /hystrix.stream
